@@ -217,7 +217,7 @@
   <div class="head-mid">
     <h1>鳳凰奇門</h1>
     <div class="title-rule"><i></i><b></b><i></i></div>
-    <div class="site-sub">製作：Sheng　｜　版本 2.0</div>
+    <div class="site-sub">製作：Sheng　｜　版本 1.0</div>
   </div>
   <svg class="phoenix mirror" viewBox="0 0 130 130" role="img" aria-label="鳳凰"><use href="#phoenix" xlink:href="#phoenix"/></svg>
 </div>
@@ -632,7 +632,7 @@ function yearMonthGZ(Y, dayJ){
 function gzIdx(g,b){ for(let i=0;i<60;i++) if(i%10===g&&i%12===b) return i; return 0; }
 
 /* ================= 排盤（星飛門轉・飛盤） ================= */
-function paipan(dayJ, brIdx, hourIdx, juInfo, dayIdx){
+function paipan(dayJ, brIdx, hourIdx, juInfo){
   const dun=juInfo.dun, ju=juInfo.ju;
   const dir=dun==="陽"?1:-1;
   // 地盤：戊起 ju 宮，陽順陰逆，序 戊己庚辛壬癸丁丙乙
@@ -692,9 +692,8 @@ function paipan(dayJ, brIdx, hourIdx, juInfo, dayIdx){
   let i0=shenRing.indexOf(pZF);
   shenSeq.forEach((sn,k)=>{ skyShen[shenRing[((i0+(dun==="陽"?1:-1)*k)%8+8)%8]]=sn; });
 
-  // 空亡（日旬空：以日柱干支所屬之旬取空亡）、馬星（時支）
-  const dayXunIdx=Math.floor(dayIdx/10)*10;   // 日柱旬首干支序
-  const kong=[BRANCHES[(dayXunIdx%12+10)%12],BRANCHES[(dayXunIdx%12+11)%12]];
+  // 空亡、馬星
+  const kong=[BRANCHES[(xunIdx%12+10)%12],BRANCHES[(xunIdx%12+11)%12]];
   const maBr={子:"寅",丑:"亥",寅:"申",卯:"巳",辰:"寅",巳:"亥",午:"申",未:"巳",申:"寅",酉:"亥",戌:"寅",亥:"巳"}[BRANCHES[hourIdx%12]];
   const kongGong=[],maGong=[];
   for(const g in GONG){
@@ -807,7 +806,7 @@ function run(mode){
     juInfo={F0:dayJ,term:null,yuan:0,label:"自訂局",fuTou:GZ(cDayIdx),ju:+cuv.slice(1),dun:cuv[0],isRun:false};
   }
   if(cDayIdx!==null){ dayIdx=cDayIdx; brIdx=cBrIdx; hourIdx=hourGZ(dayIdx,brIdx); }
-  const pp=paipan(dayJ,brIdx,hourIdx,juInfo,dayIdx);
+  const pp=paipan(dayJ,brIdx,hourIdx,juInfo);
   const notes=geJu(pp,dayIdx,hourIdx);
 
   // 四柱
@@ -837,8 +836,8 @@ function run(mode){
     <div class="gz-line${pp.dun==="陰"?" yin":""}">${GZ(yearIdx)}年　${STEMS[monthGanIdx]+BRANCHES[mBr]}月　<span class="s">${GZ(dayIdx)}</span>日　<span class="b">${GZ(hourIdx)}</span>時</div>
     <div class="fuzhu">
       ${jiePill}
-      <span class="pill">時旬首：<b>${pp.xunName}</b>遁 <b>${pp.xunYi}</b></span>
-      <span class="pill">日旬空：<b class="warn">${pp.kong.join("、")}</b></span>
+      <span class="pill">旬首：<b>${pp.xunName}</b>遁 <b>${pp.xunYi}</b></span>
+      <span class="pill">旬空：<b class="warn">${pp.kong.join("、")}</b></span>
       <span class="pill">馬星：<b>${pp.maBr}</b></span>
       ${pp.p===5&&STEMS[hourIdx%10]==="甲"?'<span class="pill warn">六甲時・伏吟</span>':""}
     </div>
@@ -892,7 +891,7 @@ function run(mode){
   jieHTML+=`<h3>盤面綱要</h3><ul>
     <li><b>值符 ${pp.zhiFuXing}</b>（${XING_TXT[pp.zhiFuXing]}）臨 ${GONG[pp.p].name}${pp.p}宮。</li>
     <li><b>值使 ${pp.zhiShiMen}</b>（${MEN_TXT[pp.zhiShiMen]}）臨 ${GONG[pp.shiGong].name}${pp.shiGong}宮。</li>
-    <li><b>日旬空</b>：${pp.kong.join("、")}——臨宮（${pp.kongGong.map(g=>GONG[g].name+g).join("、")}）之事多虛不實。</li>
+    <li><b>旬空</b>：${pp.kong.join("、")}——臨宮（${pp.kongGong.map(g=>GONG[g].name+g).join("、")}）之事多虛不實。</li>
     <li><b>馬星 ${pp.maBr}</b>：臨 ${pp.maGong.map(g=>GONG[g].name+g).join("、")}宮，主變動、出行、快速。</li></ul>`;
   jieHTML+=`<h3>各宮要義（有門有干者）</h3><ul>`;
   for(const g of [1,2,3,4,6,7,8,9]){
