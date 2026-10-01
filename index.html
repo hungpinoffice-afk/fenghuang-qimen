@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鳳凰奇門（星飛門轉・置閏法）｜製作：Sheng</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  /* ===== 中國風：宣紙底 ===== 以多層漸層模擬紙纖維，免外部圖檔 */
+  body { font-family:"Microsoft JhengHei","PingFang TC",serif;
+         background:
+           radial-gradient(ellipse at 50% -12%, rgba(255,255,255,.85), rgba(255,255,255,0) 58%),
+           repeating-linear-gradient(90deg, rgba(150,118,72,.055) 0 1px, rgba(0,0,0,0) 1px 4px),
+           repeating-linear-gradient(0deg, rgba(150,118,72,.045) 0 1px, rgba(0,0,0,0) 1px 5px),
+           linear-gradient(166deg,#f8f4e9 0%,#f2e9d8 46%,#e7dabd 100%);
+         background-attachment:fixed;
+         min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:26px 12px 42px; color:#3a2c1e; }
+  /* ===== 標題：匾額感（楷體・描白邊・朱紅細線夾菱形） ===== */
+  .kfont, h1, .subhd, .ju-title, .gz-line, .btn { font-family:"標楷體","DFKai-SB","KaiTi","Kaiti TC","BiauKai","Microsoft JhengHei",serif; }
+  /* 標題區：左右各一隻剪紙鳳凰（向量、離線、可縮放不糊） */
+  .site-head { display:flex; align-items:center; justify-content:center; gap:20px; margin-bottom:22px; }
+  .head-mid { text-align:center; min-width:0; }
+  .phoenix { width:clamp(56px,11vw,104px); height:auto; flex:0 0 auto; display:block;
+             filter:drop-shadow(0 2px 4px rgba(140,47,38,.20)); }
+  .phoenix.mirror { transform:scaleX(-1); }
+  h1 { font-size:36px; letter-spacing:14px; text-indent:14px; font-weight:bold;
+       color:#4a3728; text-shadow:0 1px 0 #fffdf6, 0 2px 5px rgba(74,55,40,.24); }
+  .title-rule { display:flex; align-items:center; justify-content:center; gap:10px; width:min(360px,72%); margin:8px auto 7px; }
+  .title-rule i { flex:1; height:1px; background:linear-gradient(90deg, rgba(176,58,46,0), #b03a2e 42%, #b03a2e 58%, rgba(176,58,46,0)); }
+  .title-rule b { width:8px; height:8px; background:#b03a2e; transform:rotate(45deg); box-shadow:0 0 0 2px #f6efe0; }
+  .site-sub { font-size:13px; letter-spacing:3px; color:#8a7a5f; }
+  /* ===== 卡片：宣紙箋（雙框＋四角回紋角飾） ===== */
+  .card { position:relative; background:linear-gradient(180deg,#fffdf7 0%,#fdf8ee 100%);
+          border:1px solid #d9c6a0; border-radius:3px;
+          box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 6px 18px rgba(74,55,40,.13);
+          padding:20px 24px; width:100%; max-width:980px; margin-bottom:18px; }
+  .card::after { content:""; position:absolute; inset:5px; pointer-events:none; border:1px solid rgba(176,58,46,.22); }
+  .card::before { content:""; position:absolute; inset:5px; pointer-events:none; opacity:.55;
+    background:
+      linear-gradient(#b03a2e,#b03a2e) left top/16px 2px no-repeat,
+      linear-gradient(#b03a2e,#b03a2e) left top/2px 16px no-repeat,
+      linear-gradient(#b03a2e,#b03a2e) right top/16px 2px no-repeat,
+      linear-gradient(#b03a2e,#b03a2e) right top/2px 16px no-repeat,
+      linear-gradient(#b03a2e,#b03a2e) left bottom/16px 2px no-repeat,
+      linear-gradient(#b03a2e,#b03a2e) left bottom/2px 16px no-repeat,
+      linear-gradient(#b03a2e,#b03a2e) right bottom/16px 2px no-repeat,
+      linear-gradient(#b03a2e,#b03a2e) right bottom/2px 16px no-repeat; }
+  .row { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; justify-content:center; }
+  .fld { display:flex; flex-direction:column; gap:4px; }
+  .fld label { font-size:13px; font-weight:bold; color:#6b5335; }
+  .inline { display:flex; gap:6px; }
+  input[type=number], select { font-family:inherit; font-size:16px; padding:7px 10px; border:1px solid #cbb083; border-radius:3px;
+       background:#fffdf7; color:#33302a; outline:none; box-shadow:0 1px 2px rgba(120,95,60,.10) inset; }
+  input:focus, select:focus { border-color:#b03a2e; box-shadow:0 0 0 2px rgba(176,58,46,.15); }
+  /* 按鈕：印鈕感（漸層朱紅／赭褐） */
+  .btn { font-size:16px; padding:9px 20px; border:1px solid #8f2d23; border-radius:3px;
+         background:linear-gradient(180deg,#c24a3c,#a3302a); color:#fff8ee; cursor:pointer; letter-spacing:3px; text-indent:3px;
+         box-shadow:0 1px 0 rgba(255,255,255,.28) inset, 0 3px 7px rgba(140,47,38,.28); }
+  .btn:hover { background:linear-gradient(180deg,#a83b2f,#8a2620); }
+  .btn2 { border-color:#5e4728; background:linear-gradient(180deg,#8d6c40,#6f5431); box-shadow:0 1px 0 rgba(255,255,255,.22) inset, 0 3px 7px rgba(90,70,40,.26); }
+  .btn2:hover { background:linear-gradient(180deg,#7a5c34,#5e4728); }
+  /* 盤面標頭（仿真詮）：墨框＋內朱線 */
+  .header-box { border:2px solid #4a3728; background:linear-gradient(180deg,#fdf9ef,#f7f0dd); padding:16px 20px; border-radius:3px; }
+  .ju-title { font-size:30px; font-weight:bold; letter-spacing:6px; color:#b03a2e; text-align:center; }
+  /* 陰遁局：標題改為鋼青藍（陽遁維持朱紅），色源取自使用者指定色票 #7E9CB6 */
+  .ju-title.yin { color:#7e9cb6; }
+  .ju-alias { text-align:center; font-size:14px; color:#6b5335; margin-top:2px; }
+  .gz-line { text-align:center; font-size:20px; font-weight:bold; margin-top:8px; letter-spacing:2px; }
+  /* 四柱：日柱・時柱「同色」強調（顏色統一隨遁別 — 陽遁朱紅、陰遁深藍） */
+  .gz-line .s, .gz-line .b { color:#b03a2e; }
+  .gz-line.yin .s, .gz-line.yin .b { color:#1a5276; }
+  .fuzhu { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 18px; margin-top:10px; font-size:14px; }
+  .fuzhu b { color:#b03a2e; }
+  .pill { background:#f4ecd9; border:1px solid #dcc9a3; border-radius:3px; padding:3px 12px; }
+  .warn { color:#b03a2e; font-weight:bold; }
+  /* 九宮盤 */
+  .grid-wrap { display:flex; justify-content:center; }
+  /* 九宮盤：木框棋盤（外粗墨框＋內均勻格線，以 gap 鋪底色成線） */
+  .grid9 { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; width:100%; max-width:640px;
+           padding:2px; background:#9a7b47; border:2px solid #6f5430; border-radius:2px;
+           box-shadow:0 3px 10px rgba(74,55,40,.20); }
+  .cell { border:0; background:#fbf6ea; min-height:172px; padding:26px 6px 8px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; }
+  .cell.mid { background:#f3ead6; }
+  .gong-name { position:absolute; top:5px; left:8px; font-size:13px; color:#6b5335; font-weight:bold; }
+  /* 真詮式緊湊排列：三欄對齊（干｜神/門｜星），欄寬固定使上下兩行欄位精確對齊；欄距加大避免框線擠到鄰字 */
+  .row1, .row2 { display:grid; grid-template-columns:1.3em 1.3em 1.9em; justify-content:center; align-items:center; column-gap:20px; white-space:nowrap; }
+  .row1 > span, .row2 > span { text-align:center; }
+  .god  { font-size:26px; color:#c96f1e; font-weight:bold; }
+  .door { font-size:26px; font-weight:bold; color:#1e7a3c; }
+  .star { font-size:26px; font-weight:bold; color:#8a7d23; }
+  /* 標記樣式：值符星、值使門採「文字網底」；吉門（休生開）採綠框；若吉門同時為值使門則框線＋網底並存
+     字框固定尺寸（1.15em 見方）＋框線固定 1.65em 見方置中，與字型/筆畫寬度無關，保證所有框大小完全一致 */
+  .star.zf, .door.zs, .door.ji { justify-self:center; display:inline-flex; align-items:center; justify-content:center;
+    width:1.15em; height:1.15em; border-radius:6px; }
+  .star.zf { background:#f7e3a1; }
+  .door.zs { background:#f9d4a8; }
+  .door.ji { position:relative; }
+  .door.ji::after {
+    content:""; position:absolute; left:50%; top:50%; width:1.65em; height:1.65em; transform:translate(-50%,-50%);
+    border:2.5px solid #2e7d32; border-radius:9px; pointer-events:none;
+  }
+  .gan-tian { font-size:26px; font-weight:bold; color:#6a3d9a; line-height:1.2; }
+  .gan-di   { font-size:26px; font-weight:bold; color:#1a5276; line-height:1.2; }
+  .badges { position:absolute; top:4px; right:6px; display:flex; flex-direction:column; gap:2px; align-items:flex-end; }
+  .bdg { font-size:11px; background:#b03a2e; color:#fff; border-radius:4px; padding:1px 5px; }
+  .bdg.blue { background:#1a5276; } .bdg.gray { background:#7a6a4f; }
+  .dorgood { color:#1e7a3c; } .dorbad { color:#b03a2e; } .dormid { color:#8a6d1f; }
+  /* 逐宮明細（仿真詮：乾坎艮震巽離坤兌） */
+  table.det { border-collapse:collapse; width:100%; }
+  table.det th, table.det td { border:1px solid #d8c49a; padding:6px 4px; text-align:center; font-size:13px; }
+  table.det th { background:linear-gradient(180deg,#f7efdc,#eee2c8); color:#5a3a26; font-size:14px; letter-spacing:1px; }
+  table.det td.gname { background:#f8f2e2; font-weight:bold; font-size:15px; }
+  table.det td.note { font-size:12px; color:#8a2d23; line-height:1.5; }
+  /* 區塊標題：朱紅菱形印記＋細底線 */
+  .subhd { display:flex; align-items:center; gap:10px; font-size:18px; font-weight:bold; letter-spacing:5px; color:#7a2f22;
+           margin:4px 0 14px; padding-bottom:7px; border-bottom:1px solid rgba(176,58,46,.22); }
+  .subhd::before { content:""; width:9px; height:9px; background:#b03a2e; transform:rotate(45deg);
+                   box-shadow:0 0 0 3px rgba(176,58,46,.16); flex:0 0 auto; }
+  /* 解盤 */
+  .jie { font-size:14px; line-height:1.9; }
+  .jie h3 { font-size:15px; color:#b03a2e; margin:10px 0 4px; }
+  .jie ul { padding-left:20px; }
+  .small { font-size:12px; color:#8a7a5f; line-height:1.7; }
+  .err { color:#b03a2e; font-weight:bold; text-align:center; display:none; margin-top:10px; }
+  .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .grp { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; }
+  /* 數字輸入隱藏微調箭頭，避免佔寬、手機顯示更清爽 */
+  input[type=number] { -moz-appearance:textfield; appearance:textfield; }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+  /* 手機版（窄螢幕自適應） */
+  @media (max-width: 680px){
+    body { padding:16px 8px 30px; }
+    .site-head { margin-bottom:16px; gap:10px; }
+    .phoenix { width:clamp(52px,13.5vw,76px); }
+    h1 { font-size:26px; letter-spacing:8px; text-indent:8px; }
+    .title-rule { width:min(240px,80%); }
+    .site-sub { font-size:12px; letter-spacing:2px; }
+    .card { padding:14px; }
+    .card::before, .card::after { inset:3px; }
+    .row { flex-direction:column; align-items:stretch; gap:10px; }
+    .row > .btn { width:100%; }
+    .grp { gap:8px; }
+    .grp > .fld { flex:1 1 0; min-width:0; }
+    #custBox > .fld { flex:1 1 calc(33.333% - 8px); min-width:0; }
+    .grp > .fld input, .grp > .fld select { width:100% !important; }
+    .fld label { font-size:12px; }
+    .fld.wide { flex:1 1 100%; }
+    #lonBox { flex:1 1 100%; }
+    #lonBox input { width:100% !important; }
+    /* 陽曆／農曆：年／月／日 一行，時／分 一行（不裁切） */
+    .fld.wide .inline { display:grid; grid-template-columns:repeat(6,1fr); gap:4px; width:100%; }
+    .fld.wide .inline > * { width:100% !important; min-width:0; }
+    .fld.wide .inline > :nth-child(-n+3) { grid-column:span 2; }
+    .fld.wide .inline > :nth-child(n+4) { grid-column:span 3; }
+    input[type=number], select { font-size:15px; padding:6px 8px; }
+    .btn { font-size:15px; padding:9px 14px; letter-spacing:1px; }
+    .header-box { padding:10px; }
+    .ju-title { font-size:24px; letter-spacing:3px; }
+    .gz-line { font-size:17px; letter-spacing:1px; }
+    .fuzhu { font-size:12px; gap:6px 10px; }
+    .pill { padding:3px 9px; }
+    .grid9 { gap:1px; padding:1px; }
+    .cell { min-height:118px; padding:20px 3px 5px; gap:9px; }
+    .god, .door, .star, .gan-tian, .gan-di { font-size:20px; }
+    .row1, .row2 { column-gap:11px; }
+    .gong-name { font-size:10px; top:3px; left:4px; }
+    .bdg { font-size:9px; padding:0 4px; }
+    table.det { min-width:600px; }
+    table.det th, table.det td { font-size:11px; padding:4px 2px; }
+    .subhd { font-size:16px; }
+    .jie { font-size:13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 鳳凰向量圖（以 symbol 定義一次，左右各用一次，維持單檔離線） -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false">
+<symbol id="phoenix" viewBox="0 0 130 130">
+<path d="M63.5,60A6.5,6.5 0 1 0 76.5,60L72.6,53.1L70.3,50.7L68.0,48.4L65.7,46.2L63.4,44.2L61.2,42.3L58.9,40.6L56.6,39.0L54.4,37.6L52.1,36.3L49.9,35.2L47.6,34.3L45.4,33.5L43.2,32.8L41,32.3L38.8,32.0L36.6,31.9L34.5,31.9L32.4,32.0L30.4,32.3L28.4,32.8L26.4,33.4L24.6,34.2L22.8,35.1L21.0,36.1L19.3,37.3L17.7,38.5L16.1,39.9L14.6,41.4L13.1,43.0L14.8,44.9L16.5,43.8L18.3,42.9L19.9,42.1L21.6,41.4L23.2,40.8L24.9,40.4L26.4,40.1L28.0,39.9L29.5,39.8L31.0,39.9L32.5,40.0L34.0,40.2L35.5,40.6L37.0,41.0L38.5,41.6L40.0,42.2L41.5,43.0L43.1,43.9L44.7,44.8L46.3,45.9L48.0,47.2L49.7,48.5L51.5,50.0L53.3,51.6L55.1,53.4L57.0,55.3L58.9,57.3L60.9,59.4L62.9,61.7L65.0,64.2Z" fill="#e3ab52" opacity="0.7"/>
+<path d="M64,60A6,6 0 1 0 76,60L72.3,53.7L70.2,51.6L68.1,49.7L66.0,47.9L63.9,46.2L61.8,44.7L59.8,43.3L57.7,42.0L55.6,40.9L53.6,39.9L51.5,39.1L49.4,38.4L47.4,37.9L45.4,37.5L43.4,37.3L41.4,37.3L39.4,37.4L37.5,37.7L35.7,38.1L33.9,38.6L32.1,39.3L30.4,40.2L28.8,41.2L27.3,42.3L25.8,43.5L24.3,44.8L23,46.2L21.6,47.8L20.3,49.4L19.1,51.2L20.9,52.7L22.4,51.4L24,50.2L25.5,49.2L27.0,48.3L28.5,47.5L29.9,46.8L31.4,46.3L32.8,45.9L34.2,45.6L35.5,45.4L36.8,45.4L38.2,45.4L39.5,45.5L40.7,45.8L42.0,46.1L43.4,46.5L44.7,47.0L46.1,47.6L47.4,48.3L48.9,49.2L50.3,50.1L51.9,51.2L53.4,52.3L55.0,53.6L56.6,55.0L58.3,56.6L60.1,58.2L61.8,60.0L63.6,62L65.5,64.0Z" fill="#e3ab52" opacity="0.7"/>
+<path d="M64.5,60A5.5,5.5 0 1 0 75.5,60L72.1,54.4L70.4,52.9L68.6,51.5L66.9,50.2L65.1,49.0L63.4,47.9L61.6,47L59.8,46.1L58.0,45.4L56.2,44.8L54.5,44.4L52.7,44.1L50.9,43.9L49.2,43.8L47.5,43.9L45.8,44.1L44.1,44.5L42.5,45.0L40.9,45.6L39.4,46.3L38.0,47.2L36.6,48.1L35.2,49.2L33.9,50.3L32.7,51.6L31.5,52.9L30.3,54.4L29.2,55.9L28.1,57.6L27.1,59.3L28.8,60.6L30.2,59.2L31.5,58.0L32.9,56.9L34.2,55.9L35.5,55.0L36.8,54.2L38.1,53.6L39.4,53.0L40.6,52.6L41.8,52.3L43.0,52.0L44.1,51.9L45.3,51.9L46.4,51.9L47.5,52.0L48.5,52.2L49.6,52.5L50.7,52.8L51.9,53.2L53.0,53.7L54.2,54.3L55.4,55.0L56.6,55.8L57.8,56.6L59.1,57.6L60.4,58.7L61.8,59.8L63.2,61.1L64.6,62.4L66.1,63.8Z" fill="#e3ab52" opacity="0.7"/>
+<path d="M50.5,80A7.5,7.5 0 1 0 65.5,80L54.8,72.7L52.2,73.1L49.7,73.5L47.3,74.0L44.8,74.6L42.4,75.2L40.1,75.9L37.7,76.7L35.4,77.6L33.2,78.5L31.0,79.5L28.8,80.6L26.7,81.7L24.7,82.9L22.7,84.2L20.8,85.6L18.9,87.0L17.1,88.5L15.3,90.1L13.6,91.7L12.0,93.4L10.5,95.1L9.0,96.9L7.6,98.8L6.2,100.7L4.9,102.7L3.7,104.7L2.6,106.8L1.6,108.9L0.6,111.1L3.3,112.8L4.8,111.0L6.3,109.4L7.8,107.8L9.4,106.3L11.0,104.9L12.6,103.5L14.3,102.2L15.9,101.0L17.6,99.8L19.3,98.8L21.0,97.7L22.8,96.8L24.6,95.8L26.4,95.0L28.2,94.2L30.1,93.4L31.9,92.7L33.8,92.1L35.7,91.5L37.7,90.9L39.6,90.4L41.6,89.9L43.7,89.5L45.7,89.1L47.8,88.7L49.9,88.4L52.0,88.1L54.2,87.8L56.4,87.6L58.6,87.4Z" fill="#c0392b"/>
+<path d="M51,80A7,7 0 1 0 65,80L53.2,74.4L51.1,75.3L49.1,76.3L47.1,77.4L45.1,78.6L43.1,79.8L41.2,81.0L39.3,82.3L37.5,83.7L35.7,85.1L34,86.6L32.2,88.1L30.6,89.7L28.9,91.4L27.3,93.1L25.8,94.9L24.3,96.7L22.8,98.6L21.4,100.5L20.1,102.5L18.7,104.5L17.4,106.6L16.2,108.8L15.0,111L13.9,113.2L12.7,115.5L11.7,117.9L10.6,120.3L9.7,122.8L8.7,125.3L11.2,126.6L12.7,124.4L14.2,122.3L15.7,120.2L17.2,118.2L18.7,116.3L20.3,114.5L21.8,112.7L23.4,111.0L24.9,109.4L26.5,107.8L28.1,106.3L29.7,104.8L31.3,103.4L32.9,102.1L34.6,100.8L36.2,99.6L37.9,98.4L39.5,97.2L41.2,96.1L42.9,95.1L44.6,94.1L46.3,93.1L48.0,92.2L49.7,91.3L51.5,90.4L53.3,89.6L55.1,88.7L56.9,88.0L58.7,87.2L60.6,86.5Z" fill="#d4691f"/>
+<path d="M51.5,80A6.5,6.5 0 1 0 64.5,80L51.9,76.8L50.6,78.3L49.2,79.8L47.9,81.3L46.6,82.8L45.4,84.4L44.2,86.0L43.0,87.6L41.9,89.2L40.8,90.8L39.7,92.5L38.7,94.2L37.7,95.9L36.7,97.6L35.8,99.4L35,101.2L34.1,103.0L33.3,104.8L32.6,106.7L31.8,108.6L31.2,110.6L30.5,112.5L29.9,114.5L29.4,116.6L28.8,118.7L28.4,120.8L27.9,122.9L27.5,125.1L27.1,127.4L26.8,129.6L29.1,130.3L30.0,128.2L30.9,126.2L31.8,124.2L32.8,122.3L33.7,120.5L34.7,118.7L35.7,117.0L36.7,115.3L37.7,113.6L38.7,112.0L39.8,110.5L40.8,108.9L41.9,107.4L43.0,106.0L44.1,104.5L45.2,103.1L46.3,101.7L47.5,100.4L48.6,99.0L49.8,97.7L51.0,96.4L52.2,95.1L53.4,93.8L54.7,92.4L56,91.1L57.2,89.8L58.5,88.5L59.9,87.2L61.2,85.9L62.6,84.6Z" fill="#c0392b"/>
+<path d="M52.5,80A5.5,5.5 0 1 0 63.5,80L52.4,78.7L51.6,80.1L50.9,81.6L50.2,83.0L49.5,84.5L48.9,85.9L48.3,87.4L47.8,88.8L47.3,90.3L46.8,91.8L46.3,93.2L45.9,94.7L45.5,96.2L45.1,97.7L44.8,99.2L44.5,100.7L44.2,102.2L44,103.8L43.7,105.3L43.5,106.9L43.4,108.5L43.2,110.1L43.1,111.7L43.0,113.4L43.0,115.1L42.9,116.8L42.9,118.5L42.9,120.2L42.9,122.0L43.0,123.8L44.9,124.1L45.4,122.3L45.9,120.6L46.3,119.0L46.8,117.4L47.3,115.8L47.8,114.2L48.3,112.7L48.8,111.3L49.3,109.8L49.8,108.4L50.4,107.0L50.9,105.7L51.5,104.3L52.0,103.0L52.6,101.7L53.2,100.4L53.8,99.2L54.4,97.9L55.0,96.7L55.7,95.4L56.3,94.2L57.0,92.9L57.6,91.7L58.3,90.4L59.0,89.2L59.7,87.9L60.5,86.6L61.2,85.3L62.0,84.0L62.7,82.7Z" fill="#a72d20"/>
+<path d="M53.5,80A4.5,4.5 0 1 0 62.5,80L53.3,80.4L53.2,81.6L53.0,82.8L52.9,84.0L52.8,85.1L52.8,86.3L52.7,87.4L52.7,88.5L52.7,89.6L52.7,90.7L52.7,91.8L52.8,92.9L52.9,94.0L53.0,95.1L53.1,96.2L53.2,97.3L53.4,98.4L53.6,99.5L53.8,100.6L54.0,101.7L54.2,102.9L54.5,104.0L54.7,105.2L55.0,106.4L55.3,107.6L55.7,108.8L56.0,110.1L56.4,111.4L56.8,112.7L57.2,114.1L58.7,113.8L58.8,112.4L58.8,111.1L58.8,109.8L58.8,108.5L58.9,107.2L59,106.0L59.0,104.8L59.1,103.7L59.2,102.5L59.3,101.4L59.4,100.3L59.5,99.3L59.6,98.2L59.7,97.2L59.8,96.2L59.9,95.2L60.1,94.2L60.2,93.2L60.4,92.2L60.5,91.2L60.7,90.3L60.9,89.3L61.0,88.2L61.2,87.2L61.4,86.2L61.6,85.1L61.8,84.1L62.0,83.0L62.2,81.8L62.4,80.7Z" fill="#d4691f"/>
+<path d="M78,44A9,9 0 1 0 96,44L80.4,49.8L81.0,50.6L81.6,51.4L82.1,52.3L82.5,53.3L82.7,54.4L82.9,55.5L83.0,56.7L83,57.9L82.8,59.2L82.5,60.5L82.1,61.9L81.6,63.2L81.0,64.6L80.3,65.9L79.4,67.2L78.5,68.4L77.4,69.6L76.3,70.7L75.0,71.8L73.7,72.8L72.3,73.7L70.8,74.5L69.3,75.2L67.6,75.8L65.9,76.3L64.2,76.6L62.4,76.8L60.5,76.9L58.5,76.8L57.4,83.2L59.8,83.7L62.2,84.0L64.6,84.1L67.0,84.0L69.4,83.8L71.7,83.4L73.9,82.8L76.2,82.0L78.3,81.1L80.4,80.1L82.4,78.9L84.3,77.6L86.1,76.2L87.8,74.7L89.4,73.0L90.9,71.3L92.3,69.4L93.5,67.5L94.7,65.5L95.6,63.3L96.4,61.1L97.1,58.8L97.6,56.5L97.8,54.1L97.8,51.6L97.7,49.0L97.2,46.5L96.5,43.9L95.6,41.4L94.4,38.9Z" fill="#c0392b"/>
+<path d="M70,61A5,5 0 1 0 80,61L76.2,55.7L74.5,54.5L72.8,53.3L71.0,52.2L69.3,51.1L67.6,50.1L65.9,49.1L64.2,48.2L62.5,47.4L60.9,46.6L59.2,45.8L57.5,45.2L55.9,44.5L54.3,44.0L52.6,43.5L51.0,43.0L49.4,42.6L47.8,42.3L46.3,42.0L44.7,41.8L43.1,41.6L41.6,41.5L40.1,41.5L38.6,41.5L37.1,41.6L35.6,41.7L34.1,41.9L32.7,42.2L31.2,42.5L29.8,42.9L30.1,45.0L31.5,45.1L32.9,45.1L34.2,45.3L35.5,45.4L36.9,45.6L38.2,45.9L39.5,46.2L40.8,46.6L42.1,47L43.4,47.4L44.7,47.9L46.1,48.4L47.4,49L48.7,49.6L50.0,50.2L51.4,50.9L52.7,51.6L54.1,52.4L55.4,53.2L56.8,54.1L58.2,55.0L59.7,55.9L61.1,56.9L62.6,57.9L64.1,59.0L65.6,60.1L67.1,61.3L68.7,62.4L70.3,63.7L71.9,64.9Z" fill="#a72d20" opacity="0.9"/>
+<path d="M70.5,61A4.5,4.5 0 1 0 79.5,61L75.7,56.2L74.2,55.4L72.7,54.6L71.1,53.8L69.6,53.1L68.1,52.4L66.7,51.8L65.2,51.2L63.7,50.7L62.3,50.2L60.8,49.7L59.4,49.3L58,49.0L56.5,48.7L55.1,48.4L53.7,48.2L52.4,48.1L51.0,48.0L49.6,47.9L48.3,47.9L46.9,48.0L45.6,48.1L44.3,48.3L43.0,48.5L41.8,48.8L40.5,49.1L39.3,49.5L38.0,50L36.8,50.5L35.6,51.0L36.3,52.9L37.5,52.7L38.7,52.6L39.9,52.5L41.0,52.4L42.2,52.4L43.3,52.5L44.5,52.6L45.6,52.7L46.7,52.9L47.9,53.1L49.0,53.4L50.1,53.6L51.2,54.0L52.4,54.3L53.5,54.7L54.7,55.2L55.8,55.7L57.0,56.2L58.2,56.7L59.4,57.3L60.6,57.9L61.9,58.5L63.2,59.2L64.4,59.9L65.7,60.7L67.1,61.4L68.4,62.3L69.8,63.1L71.2,63.9L72.6,64.8Z" fill="#a72d20" opacity="0.9"/>
+<path d="M71,61A4,4 0 1 0 79,61L75.1,56.7L73.7,56.3L72.4,55.9L71.1,55.5L69.9,55.1L68.6,54.8L67.3,54.5L66.1,54.2L64.8,54.0L63.6,53.8L62.4,53.6L61.2,53.4L60.0,53.3L58.8,53.2L57.7,53.2L56.5,53.2L55.4,53.2L54.2,53.3L53.1,53.4L52.0,53.5L50.9,53.7L49.8,53.9L48.7,54.2L47.7,54.5L46.6,54.8L45.6,55.2L44.6,55.6L43.6,56.1L42.6,56.6L41.6,57.1L42.3,58.8L43.3,58.6L44.3,58.4L45.3,58.2L46.3,58.1L47.3,58.0L48.3,58.0L49.2,58.0L50.2,58.0L51.2,58.1L52.1,58.2L53.1,58.3L54.1,58.4L55.0,58.6L56.0,58.8L57.0,59.0L58.0,59.2L59.0,59.5L60.0,59.7L61.0,60.1L62.1,60.4L63.1,60.7L64.2,61.1L65.3,61.5L66.4,61.9L67.5,62.3L68.7,62.8L69.8,63.2L71.0,63.7L72.3,64.2L73.5,64.7Z" fill="#a72d20" opacity="0.9"/>
+<path d="M67.5,58A7.5,7.5 0 1 0 82.5,58L78.3,50.2L75.7,47.1L73.0,44.0L70.4,41.1L67.7,38.3L65.1,35.6L62.4,33.0L59.7,30.5L57.0,28.2L54.3,25.9L51.6,23.9L48.9,22L46.1,20.2L43.4,18.6L40.6,17.2L37.8,16.0L35.0,15.0L32.2,14.2L29.4,13.7L26.6,13.4L23.8,13.3L21.0,13.5L18.3,14.0L15.6,14.8L13.0,15.8L10.5,17.1L8.0,18.6L5.6,20.4L3.3,22.5L0.9,24.8L3.0,27.1L5.5,25.3L7.9,23.8L10.3,22.6L12.6,21.7L14.9,21.1L17.1,20.7L19.2,20.6L21.3,20.6L23.4,20.9L25.4,21.3L27.4,22.0L29.4,22.8L31.5,23.7L33.5,24.9L35.6,26.2L37.7,27.7L39.8,29.3L41.9,31.1L44.0,33.1L46.2,35.2L48.4,37.4L50.6,39.8L52.8,42.2L55.1,44.9L57.3,47.6L59.6,50.4L61.9,53.3L64.3,56.3L66.6,59.4L69.0,62.6Z" fill="#c0392b"/>
+<path d="M68,58A7,7 0 1 0 82,58L78.5,50.6L76.1,47.2L73.7,43.8L71.3,40.6L69.0,37.4L66.6,34.4L64.2,31.5L61.9,28.7L59.5,26.1L57.2,23.5L54.8,21.2L52.5,18.9L50.1,16.8L47.8,14.8L45.4,13.0L43.1,11.4L40.7,9.9L38.4,8.6L36.0,7.5L33.6,6.5L31.3,5.8L28.9,5.3L26.6,4.9L24.3,4.8L22.0,4.9L19.8,5.2L17.6,5.8L15.4,6.6L13.3,7.5L11.3,8.7L12.6,11.2L14.6,10.6L16.5,10.2L18.4,10.0L20.2,10.0L21.9,10.2L23.7,10.5L25.4,11.0L27.1,11.6L28.8,12.4L30.5,13.4L32.2,14.5L33.9,15.7L35.7,17.1L37.4,18.7L39.2,20.4L41.0,22.2L42.9,24.2L44.7,26.4L46.6,28.6L48.5,31.0L50.4,33.6L52.4,36.2L54.4,39.0L56.4,42L58.4,45.0L60.5,48.1L62.6,51.4L64.7,54.7L66.8,58.2L69.1,61.7Z" fill="#d4691f"/>
+<path d="M68.5,58A6.5,6.5 0 1 0 81.5,58L78.8,51.3L76.8,47.6L74.9,44.1L72.9,40.8L71,37.5L69.0,34.4L67.1,31.4L65.2,28.5L63.2,25.8L61.3,23.1L59.4,20.7L57.6,18.3L55.7,16.1L53.8,14.0L52.0,12.1L50.1,10.2L48.3,8.6L46.5,7.0L44.6,5.6L42.8,4.4L41.0,3.3L39.2,2.4L37.5,1.6L35.7,0.9L33.9,0.5L32.2,0.2L30.5,0.0L28.9,0.1L27.3,0.3L25.8,0.7L26.1,3.2L27.4,3.4L28.7,3.6L29.9,4.0L31.1,4.5L32.3,5.1L33.5,5.8L34.7,6.6L36.0,7.6L37.2,8.7L38.5,9.9L39.8,11.2L41.1,12.7L42.4,14.3L43.8,16.0L45.2,17.9L46.6,19.8L48.0,22L49.5,24.2L51.0,26.6L52.5,29.1L54.0,31.7L55.6,34.4L57.2,37.3L58.8,40.3L60.4,43.4L62.1,46.7L63.8,50.1L65.6,53.5L67.3,57.1L69.1,60.9Z" fill="#c0392b"/>
+<path d="M69,58A6,6 0 1 0 81,58L78.9,52.2L77.3,48.9L75.8,45.8L74.3,42.7L72.7,39.7L71.2,36.9L69.7,34.1L68.2,31.5L66.8,29L65.3,26.5L63.9,24.2L62.5,22.0L61.1,19.9L59.7,17.9L58.3,16.0L57,14.2L55.6,12.6L54.3,11.0L53.0,9.6L51.7,8.3L50.5,7.2L49.2,6.1L48.0,5.2L46.8,4.4L45.6,3.8L44.4,3.2L43.2,2.9L42.1,2.7L41.0,2.6L40,2.8L40,5.2L40.5,5.4L41.1,5.8L41.7,6.2L42.3,6.8L43.0,7.4L43.7,8.2L44.4,9.1L45.2,10.1L46,11.2L46.8,12.5L47.6,13.8L48.5,15.3L49.4,16.9L50.4,18.6L51.4,20.4L52.4,22.3L53.4,24.4L54.5,26.5L55.5,28.8L56.7,31.2L57.8,33.6L59.0,36.2L60.2,38.9L61.4,41.7L62.7,44.6L64.0,47.5L65.3,50.6L66.6,53.8L68.0,57.0L69.5,60.4Z" fill="#c0392b"/>
+<path d="M69.5,58A5.5,5.5 0 1 0 80.5,58L79.0,53.1L77.8,50.2L76.7,47.5L75.6,44.8L74.5,42.3L73.4,39.8L72.3,37.4L71.2,35.1L70.2,33.0L69.1,30.9L68.1,28.9L67.1,27.0L66.1,25.3L65.2,23.6L64.2,22.0L63.3,20.5L62.4,19.2L61.5,17.9L60.6,16.7L59.8,15.6L58.9,14.7L58.1,13.8L57.3,13.0L56.5,12.4L55.7,11.8L55.0,11.4L54.2,11.0L53.4,10.8L52.7,10.8L52,10.9L52,13.1L52.1,13.3L52.2,13.5L52.3,13.8L52.6,14.2L52.8,14.7L53.1,15.3L53.5,16.0L53.9,16.9L54.3,17.8L54.7,18.8L55.2,19.9L55.7,21.1L56.3,22.4L56.9,23.9L57.5,25.4L58.1,27.0L58.7,28.7L59.4,30.6L60.1,32.5L60.9,34.5L61.6,36.6L62.4,38.8L63.2,41.1L64.1,43.5L65,46.0L65.9,48.6L66.8,51.3L67.8,54.0L68.8,56.9L69.8,59.8Z" fill="#d4691f"/>
+<path d="M70,58A5,5 0 1 0 80,58L79.0,54.1L78.3,51.7L77.6,49.3L76.9,47.1L76.2,45.0L75.5,42.9L74.8,41.0L74.1,39.2L73.5,37.5L72.8,35.8L72.2,34.3L71.6,32.8L71.0,31.5L70.4,30.2L69.8,29.0L69.2,27.9L68.7,26.9L68.1,26.0L67.6,25.1L67.1,24.4L66.6,23.7L66.1,23.1L65.6,22.5L65.1,22.1L64.6,21.7L64.1,21.3L63.6,21.1L63.1,20.9L62.5,20.9L62,21L62,23L61.8,23.1L61.7,23.3L61.6,23.4L61.6,23.7L61.6,24L61.7,24.3L61.8,24.8L61.9,25.3L62.1,26L62.2,26.7L62.4,27.4L62.6,28.3L62.8,29.2L63.1,30.3L63.4,31.4L63.7,32.6L64.0,33.9L64.3,35.3L64.6,36.7L65.0,38.3L65.4,40.0L65.8,41.7L66.3,43.6L66.7,45.5L67.2,47.6L67.8,49.7L68.3,51.9L68.9,54.3L69.5,56.7L70.1,59.3Z" fill="#c0392b"/>
+<path d="M66.5,58A7.5,7.5 0 1 0 81.5,58L81.2,60.2L81.6,59.1L82.1,58.1L82.6,57.1L83.1,56.1L83.6,55.2L84.0,54.3L84.5,53.4L85.0,52.6L85.4,51.8L85.9,51.1L86.4,50.4L86.8,49.7L87.3,49.0L87.8,48.4L88.2,47.8L88.7,47.2L89.1,46.7L89.6,46.2L90.1,45.7L90.5,45.2L91.0,44.8L91.5,44.3L92.0,43.9L92.5,43.5L93,43.1L93.5,42.8L94.0,42.4L94.5,42.1L95.0,41.8L90.9,32.1L90.0,32.4L89.2,32.8L88.3,33.1L87.5,33.5L86.6,33.9L85.8,34.4L84.9,34.8L84.1,35.3L83.3,35.9L82.4,36.4L81.6,37.0L80.8,37.7L80.0,38.3L79.2,39.0L78.4,39.7L77.6,40.5L76.8,41.3L76.1,42.1L75.3,43.0L74.5,43.9L73.8,44.8L73.1,45.7L72.3,46.7L71.6,47.7L70.8,48.8L70.1,49.9L69.4,51.0L68.7,52.2L68,53.4L67.2,54.6Z" fill="#c0392b"/>
+<ellipse cx="95" cy="34" rx="7" ry="6.5" fill="#c0392b"/>
+<path d="M100,29 L113,34 L100,39 Z" fill="#d9a441"/>
+<circle cx="96.5" cy="32.4" r="1.6" fill="#fbf6ea"/>
+<circle cx="97" cy="32.4" r="0.9" fill="#3a2c1e"/>
+<path d="M87.4,29A2.6,2.6 0 1 0 92.6,29L91.6,26.6L91.0,25.5L90.3,24.5L89.7,23.6L89.0,22.6L88.3,21.8L87.7,21.0L87.0,20.2L86.3,19.5L85.6,18.9L84.9,18.3L84.2,17.7L83.5,17.2L82.7,16.8L82.0,16.4L81.3,16.1L80.5,15.8L79.8,15.5L79.1,15.4L78.4,15.2L77.7,15.1L77,15.1L76.3,15.1L75.6,15.2L74.9,15.3L74.3,15.5L73.6,15.7L73.0,15.9L72.4,16.2L71.8,16.5L72.1,17.4L72.7,17.3L73.3,17.3L73.9,17.3L74.5,17.4L75.0,17.4L75.5,17.5L76.1,17.7L76.6,17.8L77.1,18.0L77.5,18.2L78.0,18.5L78.5,18.8L79.0,19.1L79.4,19.4L79.9,19.8L80.4,20.2L80.9,20.6L81.3,21.1L81.8,21.6L82.3,22.1L82.8,22.7L83.3,23.4L83.9,24.1L84.4,24.8L84.9,25.6L85.4,26.4L86.0,27.3L86.5,28.2L87.1,29.2L87.7,30.2Z" fill="#d4691f"/>
+<path d="M86.8,31A2.2,2.2 0 1 0 91.2,31L89.6,28.6L88.7,27.9L87.9,27.3L87.1,26.8L86.3,26.2L85.5,25.8L84.7,25.3L83.9,25L83.1,24.6L82.3,24.3L81.5,24.1L80.7,23.9L80.0,23.7L79.2,23.6L78.5,23.5L77.7,23.5L77.0,23.5L76.3,23.6L75.6,23.7L74.9,23.8L74.2,23.9L73.6,24.1L72.9,24.3L72.3,24.6L71.7,24.9L71.1,25.2L70.5,25.5L69.9,25.8L69.3,26.2L68.8,26.6L69.1,27.3L69.8,27.1L70.4,27L71.0,26.8L71.6,26.7L72.2,26.6L72.8,26.5L73.4,26.5L74.0,26.4L74.6,26.4L75.1,26.4L75.7,26.5L76.3,26.5L76.8,26.6L77.4,26.7L77.9,26.9L78.5,27.0L79.1,27.2L79.6,27.4L80.2,27.7L80.8,27.9L81.4,28.3L82.0,28.6L82.7,29L83.3,29.4L84,29.8L84.6,30.3L85.3,30.8L86.0,31.4L86.8,32.0L87.5,32.6Z" fill="#d9a441"/>
+<path d="M86.2,33A1.8,1.8 0 1 0 89.8,33L87.7,31.0L86.9,30.7L86.1,30.5L85.3,30.3L84.4,30.1L83.6,30.0L82.9,29.9L82.1,29.9L81.3,29.9L80.6,29.9L79.8,29.9L79.1,30.0L78.4,30.1L77.7,30.2L77.0,30.3L76.3,30.5L75.6,30.7L75.0,30.9L74.3,31.1L73.7,31.4L73.1,31.6L72.5,31.9L71.9,32.2L71.3,32.5L70.7,32.9L70.1,33.2L69.5,33.5L68.9,33.9L68.4,34.3L67.8,34.6L68.1,35.3L68.7,35.1L69.4,34.8L70.0,34.6L70.6,34.4L71.3,34.3L71.9,34.1L72.5,33.9L73.1,33.8L73.7,33.6L74.3,33.5L75.0,33.4L75.6,33.3L76.2,33.2L76.8,33.1L77.4,33.1L78.0,33.0L78.6,33.0L79.3,33.0L79.9,33.0L80.5,33.1L81.2,33.1L81.8,33.2L82.4,33.3L83.1,33.4L83.8,33.6L84.5,33.7L85.2,33.9L85.9,34.1L86.6,34.4L87.3,34.6Z" fill="#d4691f"/>
+<path d="M79,76 q-6,4 -9,9" stroke="#8e2318" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+<path d="M70,85 q-6,3 -8,6.5" stroke="#8e2318" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+<path d="M70,85 q-4,3 -5,6.5" stroke="#8e2318" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+<path d="M70,85 q-2,3 -2,6.5" stroke="#8e2318" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+<path d="M90,72 q-4,4 -7,7" stroke="#8e2318" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+</symbol>
+</svg>
+
+<div class="site-head">
+  <svg class="phoenix" viewBox="0 0 130 130" role="img" aria-label="鳳凰"><use href="#phoenix" xlink:href="#phoenix"/></svg>
+  <div class="head-mid">
+    <h1>鳳凰奇門</h1>
+    <div class="title-rule"><i></i><b></b><i></i></div>
+    <div class="site-sub">製作：Sheng　｜　版本 1.0</div>
+  </div>
+  <svg class="phoenix mirror" viewBox="0 0 130 130" role="img" aria-label="鳳凰"><use href="#phoenix" xlink:href="#phoenix"/></svg>
+</div>
+
+<div class="card">
+  <div class="subhd">時間排盤</div>
+  <div class="row">
+    <div class="grp">
+      <div class="fld"><label>&nbsp;</label><button class="btn btn2" onclick="now()">現在時間</button></div>
+      <div class="fld"><label>曆別</label>
+        <select id="cal" onchange="toggleCal()">
+          <option value="solar">陽曆</option>
+          <option value="lunar">農曆</option>
+        </select>
+      </div>
+    </div>
+    <div class="fld wide" id="solarBox"><label>陽曆 年／月／日／時／分</label>
+      <div class="inline">
+        <input type="number" id="sy" value="2026" min="1901" max="2099" style="width:90px">
+        <select id="sm" onchange="refreshSolarDays()"></select>
+        <select id="sd"></select>
+        <select id="shh"></select>
+        <select id="smi"></select>
+      </div>
+    </div>
+    <div class="fld wide" id="lunarBox" style="display:none"><label>農曆 年／月／日／時／分</label>
+      <div class="inline">
+        <input type="number" id="ly" value="2026" min="1901" max="2099" style="width:90px">
+        <select id="lm" onchange="refreshDays()"></select>
+        <select id="ld"></select>
+        <select id="lhh"></select>
+        <select id="lmi"></select>
+      </div>
+    </div>
+    <div class="fld" id="lonBox"><label>經度°（120＝不修正）</label><input type="number" id="lon" value="120" step="0.5" style="width:96px"></div>
+    <button class="btn" onclick="run('auto')">排 盤</button>
+  </div>
+  <div class="err" id="err"></div>
+</div>
+
+<div class="card">
+  <div class="subhd">自訂局排盤</div>
+  <div class="row">
+    <div class="grp" id="custBox">
+      <div class="fld"><label>年柱</label><select id="cygz" style="width:104px"></select></div>
+      <div class="fld"><label>月柱</label><select id="cmgz" style="width:104px"></select></div>
+      <div class="fld"><label>日柱</label><select id="cdgz" style="width:104px"></select></div>
+      <div class="fld"><label>時辰</label><select id="chbr" style="width:96px"></select></div>
+      <div class="fld"><label>局</label><select id="cju" style="width:118px"></select></div>
+    </div>
+    <button class="btn" onclick="run('custom')">排 盤</button>
+  </div>
+</div>
+
+<div class="card header-box" id="headbox" style="display:none"></div>
+
+<div class="card grid-wrap" style="flex-direction:column;align-items:center">
+  <div class="grid9" id="grid9" style="display:none"></div>
+</div>
+
+<div class="card" id="detbox" style="display:none"></div>
+<div class="card jie" id="jiebox" style="display:none"></div>
+
+<script>
+/* ================= 基礎資料 ================= */
+const STEMS=["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const BRANCHES=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const GAN_WU=["木","木","火","火","土","土","金","金","水","水"];
+const GANYY=["陽","陰","陽","陰","陽","陰","陽","陰","陽","陰"];
+const GZ=i=>STEMS[((i%10)+10)%10]+BRANCHES[((i%12)+12)%12];
+/* 農曆用國字數字：1–99 → 一、二…十、十一…二十一…三十 */
+const CN_D="〇一二三四五六七八九";
+function cnNum(n){
+  n=Math.floor(n);
+  if(!(n>=0&&n<=99)) return String(n);
+  if(n<10) return CN_D[n];
+  if(n===10) return "十";
+  const t=Math.floor(n/10), o=n%10;
+  return (t===1?"十":CN_D[t]+"十")+(o?CN_D[o]:"");
+}
+/* 年份逐位轉國字：2026 → 二〇二六 */
+function cnYear(y){ return String(y).split("").map(d=>CN_D[+d]||d).join(""); }
+
+/* ================= 農曆（1900–2100）→ 陽曆 ================= */
+const LUNAR_INFO=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
+0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
+0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,
+0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,
+0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,
+0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,
+0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,
+0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,
+0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,
+0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,
+0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,
+0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,
+0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,
+0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,
+0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,
+0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,
+0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,
+0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,
+0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,
+0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a2d0,0x0d150,0x0f252,
+0x0d520];
+function leapMonth(y){return LUNAR_INFO[y-1900]&0xf;}
+function leapDays(y){return leapMonth(y)?((LUNAR_INFO[y-1900]&0x10000)?30:29):0;}
+function monthDays(y,m){return (LUNAR_INFO[y-1900]&(0x10000>>m))?30:29;}
+function lYearDays(y){let s=348;for(let i=0x8000;i>0x8;i>>=1){s+=(LUNAR_INFO[y-1900]&i)?1:0;}return s+leapDays(y);}
+// 農曆 (y,m,d,isLeapMonth) → 陽曆 {y,m,d}；1900-01-31 為農曆 1900 年正月初一
+function lunar2solar(y,m,d,isLeap){
+  if(y<1900||y>2100) return null;
+  const leap=leapMonth(y);
+  if(isLeap&&leap!==m) return null;
+  let off=0;
+  for(let i=1900;i<y;i++) off+=lYearDays(i);
+  for(let i=1;i<m;i++){ off+=monthDays(y,i); if(i===leap) off+=leapDays(y); }
+  if(isLeap) off+=monthDays(y,m);
+  off+=d-1;
+  const dt=new Date(Date.UTC(1900,0,31)+off*86400000);
+  return {y:dt.getUTCFullYear(),m:dt.getUTCMonth()+1,d:dt.getUTCDate()};
+}
+// 時辰（代表時）：早子0、丑1、寅3…亥21、晚子23
+const HZ_LIST=[[0,"早子時（00:00–00:59）"],[1,"丑時（01–02）"],[3,"寅時（03–04）"],[5,"卯時（05–06）"],
+  [7,"辰時（07–08）"],[9,"巳時（09–10）"],[11,"午時（11–12）"],[13,"未時（13–14）"],[15,"申時（15–16）"],
+  [17,"酉時（17–18）"],[19,"戌時（19–20）"],[21,"亥時（21–22）"],[23,"晚子時（23:00–23:59）"]];
+const HZ_NAME={0:"早子時",1:"丑時",3:"寅時",5:"卯時",7:"辰時",9:"巳時",11:"午時",13:"未時",15:"申時",17:"酉時",19:"戌時",21:"亥時",23:"晚子時"};
+// 由實際小時回推時辰名（早子／晚子分列，其餘依時支）
+function hzNameOf(h){const b=Math.floor(((h+1)%24)/2);return (h===0?"早":h===23?"晚":"")+(BRANCHES[b]||"")+"時";}
+
+function toggleCal(){
+  const lunar=document.getElementById("cal").value==="lunar";
+  document.getElementById("solarBox").style.display = lunar?"none":"";
+  document.getElementById("lunarBox").style.display = lunar?"":"none";
+}
+function refreshLunarUI(){
+  const ly=+document.getElementById("ly").value;
+  if(!ly||ly<1901||ly>2099) return;
+  const lmSel=document.getElementById("lm");
+  const prev=lmSel.value;
+  const leap=leapMonth(ly), vals=[];
+  let html="";
+  for(let m=1;m<=12;m++){
+    html+=`<option value="${m}">${cnNum(m)}月</option>`; vals.push(String(m));
+    if(leap===m){ html+=`<option value="${m}L">閏${cnNum(m)}月</option>`; vals.push(m+"L"); }
+  }
+  lmSel.innerHTML=html;
+  if(prev&&vals.indexOf(prev)>=0) lmSel.value=prev;
+  refreshDays();
+}
+function refreshDays(){
+  const ly=+document.getElementById("ly").value;
+  const lmv=document.getElementById("lm").value;
+  if(!ly||!lmv) return;
+  const ldSel=document.getElementById("ld");
+  const isLeap=lmv.slice(-1)==="L", m=parseInt(lmv);
+  const days=isLeap?leapDays(ly):monthDays(ly,m);
+  const prev=+ldSel.value||1;
+  let html="";
+  for(let d=1;d<=days;d++) html+=`<option value="${d}">${cnNum(d)}日</option>`;
+  ldSel.innerHTML=html;
+  if(prev<=days) ldSel.value=prev;
+}
+
+/* ---- 陽曆→農曆（反查，供兩曆同步） ---- */
+function solar2lunar(Y,M,D){
+  let off=Math.round((Date.UTC(Y,M-1,D)-Date.UTC(1900,0,31))/86400000);
+  if(off<0) return null;
+  let y=1900;
+  for(;y<=2100;y++){ const dy=lYearDays(y); if(off<dy) break; off-=dy; }
+  if(y>2100) return null;
+  const leap=leapMonth(y);
+  let m=1,isLeap=false,ok=false;
+  while(m<=12){
+    const dm=monthDays(y,m);
+    if(off<dm){ ok=true; break; }
+    off-=dm;
+    if(m===leap){ const dl=leapDays(y); if(off<dl){ isLeap=true; ok=true; break; } off-=dl; }
+    m++;
+  }
+  if(!ok) return null;
+  return {y, m, d:off+1, isLeap};
+}
+
+/* ---- 「時」「分」下拉選項（0–23 時、0–59 分），陽曆與農曆共用 ---- */
+function fillHM(hid,mid){
+  const hh=document.getElementById(hid), mi=document.getElementById(mid);
+  if(!hh||!mi) return;
+  if(!hh.options||!hh.options.length){
+    let a="",b="";
+    for(let i=0;i<24;i++) a+=`<option value="${i}">${String(i).padStart(2,"0")}時</option>`;
+    for(let i=0;i<60;i++) b+=`<option value="${i}">${String(i).padStart(2,"0")}分</option>`;
+    hh.innerHTML=a; hh.value="11";
+    mi.innerHTML=b; mi.value="0";
+  }
+}
+
+/* ---- 陽曆欄位（年／月／日／時／分，與農曆同款式） ---- */
+function initSolarUI(){
+  const sm=document.getElementById("sm");
+  if(!sm.options||!sm.options.length){
+    let html="";
+    for(let m=1;m<=12;m++) html+=`<option value="${m}">${m}月</option>`;
+    sm.innerHTML=html; sm.value="1";
+  }
+  fillHM("shh","smi");
+  refreshSolarDays();
+}
+function refreshSolarDays(){
+  const sy=+document.getElementById("sy").value;
+  const sm=+document.getElementById("sm").value;
+  if(!sy||!sm) return;
+  const days=new Date(sy,sm,0).getDate(); // 該年該月天數（自動處理閏年）
+  const sd=document.getElementById("sd");
+  const prev=+sd.value||1;
+  let html="";
+  for(let d=1;d<=days;d++) html+=`<option value="${d}">${d}日</option>`;
+  sd.innerHTML=html;
+  if(prev<=days) sd.value=prev;
+}
+// 實際時 → 時辰代表時（早子0、丑1、寅3…亥21、晚子23）
+function repHour(h){ return h===0?0 : h===23?23 : (h%2===1?h:h-1); }
+
+// 二十四節氣（太陽視黃經）
+const TERM_ANGLE=[["冬至",270],["小寒",285],["大寒",300],["立春",315],["雨水",330],["驚蟄",345],
+  ["春分",0],["清明",15],["穀雨",30],["立夏",45],["小滿",60],["芒種",75],
+  ["夏至",90],["小暑",105],["大暑",120],["立秋",135],["處暑",150],["白露",165],
+  ["秋分",180],["寒露",195],["霜降",210],["立冬",225],["小雪",240],["大雪",255]];
+// 一年內時序（1月起）
+const YEAR_TERMS=["立春","雨水","驚蟄","春分","清明","穀雨","立夏","小滿","芒種","夏至","小暑","大暑","立秋","處暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至","小寒","大寒"];
+
+// 三元局表（置閏法通用・煙波釣叟歌）
+const YANG_TERMS=["冬至","小寒","大寒","立春","雨水","驚蟄","春分","清明","穀雨","立夏","小滿","芒種"];
+const YIN_TERMS =["夏至","小暑","大暑","立秋","處暑","白露","秋分","寒露","霜降","立冬","小雪","大雪"];
+const SANYUAN={
+  "冬至":[1,7,4],"驚蟄":[1,7,4],"小寒":[2,8,5],"大寒":[3,9,6],"春分":[3,9,6],"立春":[8,5,2],
+  "雨水":[9,6,3],"清明":[4,1,7],"立夏":[4,1,7],"穀雨":[5,2,8],"小滿":[5,2,8],"芒種":[6,3,9],
+  "夏至":[9,3,6],"白露":[9,3,6],"小暑":[8,2,5],"大暑":[7,1,4],"秋分":[7,1,4],"立秋":[2,5,8],
+  "處暑":[1,4,7],"寒露":[6,9,3],"立冬":[6,9,3],"霜降":[5,8,2],"小雪":[5,8,2],"大雪":[4,7,1]
+};
+
+// 九宮
+const GONG={
+  1:{name:"坎",tri:"☵",wuxing:"水",zhi:["子"]},
+  2:{name:"坤",tri:"☷",wuxing:"土",zhi:["未","申"]},
+  3:{name:"震",tri:"☳",wuxing:"木",zhi:["卯"]},
+  4:{name:"巽",tri:"☴",wuxing:"木",zhi:["辰","巳"]},
+  5:{name:"中",tri:"",wuxing:"土",zhi:[]},
+  6:{name:"乾",tri:"☰",wuxing:"金",zhi:["戌","亥"]},
+  7:{name:"兌",tri:"☱",wuxing:"金",zhi:["酉"]},
+  8:{name:"艮",tri:"☶",wuxing:"土",zhi:["丑","寅"]},
+  9:{name:"離",tri:"☲",wuxing:"火",zhi:["午"]}
+};
+// 九星（本宮）：飛盤依宮數序
+const XING=[
+  {n:"天蓬",g:1,wx:"水",jj:"凶"},
+  {n:"天芮",g:2,wx:"土",jj:"凶"},
+  {n:"天沖",g:3,wx:"木",jj:"小吉"},
+  {n:"天輔",g:4,wx:"木",jj:"吉"},
+  {n:"天禽",g:5,wx:"土",jj:"吉"},
+  {n:"天心",g:6,wx:"金",jj:"吉"},
+  {n:"天柱",g:7,wx:"金",jj:"小凶"},
+  {n:"天任",g:8,wx:"土",jj:"小吉"},
+  {n:"天英",g:9,wx:"火",jj:"小凶"}
+];
+// 八門（本宮）＋門環（順時針：坎1→艮8→震3→巽4→離9→坤2→兌7→乾6）
+const MEN=[
+  {n:"休門",g:1,wx:"水",jj:"吉"},
+  {n:"生門",g:8,wx:"土",jj:"大吉"},
+  {n:"傷門",g:3,wx:"木",jj:"凶"},
+  {n:"杜門",g:4,wx:"木",jj:"小凶"},
+  {n:"景門",g:9,wx:"火",jj:"平"},
+  {n:"死門",g:2,wx:"土",jj:"大凶"},
+  {n:"驚門",g:7,wx:"金",jj:"凶"},
+  {n:"開門",g:6,wx:"金",jj:"吉"}
+];
+const MEN_RING=[1,8,3,4,9,2,7,6]; // 順時針宮序
+const DOOR_OF_GONG={1:"休門",8:"生門",3:"傷門",4:"杜門",9:"景門",2:"死門",7:"驚門",6:"開門"};
+// 八神（飛盤依宮序飛布）
+const SHEN=["值符","螣蛇","太陰","六合","白虎","玄武","九地","九天"];
+// 真詮式單字縮寫
+const SHEN_ABBR={"值符":"符","螣蛇":"蛇","太陰":"陰","六合":"合","勾陳":"勾","朱雀":"雀","白虎":"虎","玄武":"玄","九地":"地","九天":"天"};
+const XING_ABBR=n=>n?n.slice(1):"";          // 天任→任
+const MEN_ABBR=n=>n?n[0]:"";                  // 休門→休
+// 六甲遁儀
+const XUNSHOU=[{gz:"甲子",yi:"戊"},{gz:"甲戌",yi:"己"},{gz:"甲申",yi:"庚"},{gz:"甲午",yi:"辛"},{gz:"甲辰",yi:"壬"},{gz:"甲寅",yi:"癸"}];
+const YI_ORDER=["戊","己","庚","辛","壬","癸","丁","丙","乙"];
+const DUI_GONG={1:9,9:1,2:8,8:2,3:7,7:3,4:6,6:4,5:5};
+
+/* ================= 曆法計算 ================= */
+function jdn(y,m,d){const a=Math.floor((14-m)/12),yy=y+4800-a,mm=m+12*a-3;
+  return d+Math.floor((153*mm+2)/5)+365*yy+Math.floor(yy/4)-Math.floor(yy/100)+Math.floor(yy/400)-32045;}
+function jdnToYMD(j){let a=j+32044,b=Math.floor((4*a+3)/146097),c=a-Math.floor(146097*b/4),
+  d2=Math.floor((4*c+3)/1461),e=c-Math.floor(1461*d2/4),m2=Math.floor((5*e+2)/153);
+  return {y:100*b+d2-4800+Math.floor(m2/10), m:m2+3-12*Math.floor(m2/10), d:e-Math.floor((153*m2+2)/5)+1};}
+// 日干支：2000-01-07 = 甲子
+const dayGZ=j=>(((j-2451551)%60)+60)%60;
+
+// 太陽視黃經（Meeus 低階式）
+function sunLambda(jd){
+  const T=(jd-2451545.0)/36525.0;
+  const L0=280.46646+36000.76983*T+0.0003032*T*T;
+  const Mr=(357.52911+35999.05029*T-0.0001537*T*T)*Math.PI/180;
+  const C=(1.914602-0.004817*T-0.000014*T*T)*Math.sin(Mr)
+        +(0.019993-0.000101*T)*Math.sin(2*Mr)+0.000289*Math.sin(3*Mr);
+  const om=(125.04-1934.136*T)*Math.PI/180;
+  const lam=L0+C-0.00569-0.00478*Math.sin(om);
+  return ((lam%360)+360)%360;
+}
+// 某年某黃經度之交節「日」JDN（北京時間 UTC+8）
+function termJDN(year,angle){
+  let jd=jdn(year,1,1)-0.5+((angle-280+360)%360)/0.98565;
+  for(let k=0;k<10;k++){
+    const diff=((angle-sunLambda(jd)+540)%360)-180;
+    jd+=diff/0.98565;
+  }
+  return Math.floor(jd+8/24+0.5);
+}
+function yearTerms(y){
+  return YEAR_TERMS.map(n=>{
+    const a=TERM_ANGLE.find(t=>t[0]===n)[1];
+    return {name:n, j:termJDN(y,a)};
+  }).sort((x,z)=>x.j-z.j);
+}
+// 五鼠遁時干支（日干支 idx + 時支 idx）
+function hourGZ(dayIdx,brIdx){
+  const I0=[0,12,24,36,48][dayIdx%5]; // 子時干支序：甲己→0 乙庚→12 丙辛→24 丁壬→36 戊癸→48
+  return ((I0+brIdx)%60+60)%60;        // 時支 = 時辰支序 brIdx
+}
+
+/* ================= 置閏法定局（串連式） =================
+   原理：以「正授」錨點（符頭＝節氣同日）為基準，把時間切成 15 日一「塊」
+   （每塊之上元符頭為甲子／己卯／甲午／己酉）。逐塊串連推進節氣；僅在
+   「芒種（陽遁）／大雪（陰遁）」且該塊符頭超前節氣 9 日以上時，於其後
+   插入一塊「同節氣」的閏奇（重複上中下三元），之後才進入下一節氣。
+   置閏律具自鎖定性：任意起始相位都會在數十年內收斂到同一絕對相位，
+   故 1912 年以後之定局結果唯一。 */
+const Z_ANCHOR_J=jdn(2025,8,23);              // 甲子日
+const Z_ANCHOR_TI=YEAR_TERMS.indexOf("處暑");
+const Z_THR=9;
+let Z_MAP=null;
+const _tc={};
+const _yrTerms=y=>_tc[y]||(_tc[y]=yearTerms(y));
+function _termDay(name,nearJ){                 // 取距 nearJ 最近之「name」節氣 JDN
+  const y=jdnToYMD(nearJ).y;let best=null,bd=1e9;
+  for(let k=y-1;k<=y+1;k++)for(const t of _yrTerms(k))if(t.name===name){
+    const d=Math.abs(t.j-nearJ);if(d<bd){bd=d;best=t.j;}}
+  return best;
+}
+const _zidx=ti=>((ti%24)+24)%24;
+function buildZMap(){
+  if(Z_MAP)return Z_MAP;
+  const map={},LO=jdn(1901,1,2),HI=jdn(2099,12,30);
+  const kLo=Math.floor((LO-Z_ANCHOR_J)/15)+1,kHi=Math.floor((HI-Z_ANCHOR_J)/15)-1;
+  let k=kLo,ti=0;
+  while(k<=kHi){
+    const J=Z_ANCHOR_J+k*15,t=YEAR_TERMS[_zidx(ti)],sup=_termDay(t,J)-J;
+    map[J]={t:t,d:sup,run:false};
+    if((t==="芒種"||t==="大雪")&&sup>Z_THR&&(k+1)<=kHi){
+      const J2=Z_ANCHOR_J+(k+1)*15;
+      map[J2]={t:t,d:_termDay(t,J2)-J2,run:true};
+      k+=2;
+    }else k+=1;
+    ti+=1;
+  }
+  return Z_MAP=map;
+}
+function dingJu(dayJ){
+  const map=buildZMap();
+  // F = 符頭（最近甲／己日 ≤ dayJ）；依符頭地支定元；F1 = 該元所屬塊之上元符頭
+  let F=dayJ;while(!(dayGZ(F)%10===0||dayGZ(F)%10===5))F--;
+  const F_gz=GZ(dayGZ(F)),F_branch=F_gz[1];
+  const SHANG=["子","午","卯","酉"],ZHONG=["寅","申","巳","亥"];
+  const yuan=SHANG.includes(F_branch)?0:ZHONG.includes(F_branch)?1:2;
+  const F1=F-yuan*5;
+  const m=map[F1];
+  if(!m){                                       // 超出 1901–2099：退回夾逼法
+    const y=jdnToYMD(dayJ).y,terms=[];for(let yy=y-3;yy<=y+1;yy++)terms.push(...yearTerms(yy));
+    terms.sort((a,z)=>a.j-z.j);
+    let Tp=null,Tn=null;for(const t of terms){if(t.j<=F1)Tp=t;else{Tn=t;break;}}
+    if(!Tn)Tn=terms[terms.length-1];
+    const T=(Tn.j-F1)<(F1-Tp.j)?Tn:Tp;
+    return {dun:YANG_TERMS.includes(T.name)?"陽":"陰",ju:SANYUAN[T.name][yuan],term:{name:T.name},
+            yuan,label:"—",fuTou:F_gz,isRun:false};
+  }
+  const t=m.t;
+  return {dun:YANG_TERMS.includes(t)?"陽":"陰",ju:SANYUAN[t][yuan],term:{name:t},yuan,
+          label:m.run?"閏奇":(m.d>0?"超神":(m.d<0?"接氣":"正授")),
+          fuTou:GZ(dayGZ(F1)),isRun:!!m.run};
+}
+
+/* ================= 年柱／月柱（以節氣為界） ================= */
+function yearMonthGZ(Y, dayJ){
+  const terms=[];for(let yy=Y-1;yy<=Y+1;yy++)terms.push(...yearTerms(yy));
+  terms.sort((a,b)=>a.j-b.j);
+  // 年柱：以立春為界（yearTerms 物件無 .y，改用立春 JDN 反推年份）
+  const lichunList=terms.filter(t=>t.name==="立春");
+  const lc=lichunList.reduce((a,t)=>t.j<=dayJ?t:a,lichunList[0]);
+  const LY=jdnToYMD(lc.j).y;
+  const yearIdx=((LY-4)%60+60)%60;
+  // 月柱：五虎遁（以節氣定月支）
+  const jieNames=["立春","驚蟄","清明","立夏","芒種","小暑","立秋","白露","寒露","立冬","大雪","小寒"];
+  const jieMap={"立春":2,"驚蟄":3,"清明":4,"立夏":5,"芒種":6,"小暑":7,"立秋":8,"白露":9,"寒露":10,"立冬":11,"大雪":0,"小寒":1};
+  let mS=null;
+  for(const t of terms){ if(jieNames.includes(t.name)&&t.j<=dayJ){ if(!mS||t.j>mS.j){mS=t;} } }
+  const mBr=mS?jieMap[mS.name]:1; // 月支序（子0丑1寅2…）
+  const yueGanStart=[2,4,6,8,0][yearIdx%5]; // 五虎遁：甲己→丙 乙庚→戊 丙辛→庚 丁壬→壬 戊癸→甲
+  const monthGanIdx=(yueGanStart+((mBr-2+12)%12))%10;
+  return {yearIdx, monthGanIdx, mBr};
+}
+// 干序＋支序 → 六十甲子序（0–59）
+function gzIdx(g,b){ for(let i=0;i<60;i++) if(i%10===g&&i%12===b) return i; return 0; }
+
+/* ================= 排盤（星飛門轉・飛盤） ================= */
+function paipan(dayJ, brIdx, hourIdx, juInfo){
+  const dun=juInfo.dun, ju=juInfo.ju;
+  const dir=dun==="陽"?1:-1;
+  // 地盤：戊起 ju 宮，陽順陰逆，序 戊己庚辛壬癸丁丙乙
+  const earthGan={};
+  YI_ORDER.forEach((g,k)=>{ earthGan[((ju-1+dir*k)%9+9)%9+1]=g; });
+  const gongOfYi={}; for(const g in earthGan) gongOfYi[earthGan[g]]=+g;
+
+  // 旬首
+  const xunIdx=Math.floor(hourIdx/10)*10; // 時辰旬首干支序
+  const xunYi=YI_ORDER[Math.floor(xunIdx/10)]; // 戊~癸
+  const xunName=XUNSHOU[Math.floor(xunIdx/10)].gz;
+  const g0=gongOfYi[xunYi]; // 旬首儀地盤宮
+
+  // 時干（甲→用旬首儀）
+  const hStem=STEMS[hourIdx%10];
+  const effGan=hStem==="甲"?xunYi:hStem;
+  const p=gongOfYi[effGan]; // 時干地盤宮
+
+  // 值符（旬首宮之地盤星）、值使（旬首宮之地盤門）
+  const starOfGong={}; XING.forEach(s=>starOfGong[s.g]=s.n);
+  const zhiFuXing=starOfGong[g0];
+  const zhiShiMen=DOOR_OF_GONG[g0]||"死門"; // 中五寄坤二→死門
+
+  // 天盤九星：值符星隨時干宮，恆順飛（洛書順），不管陰陽（中五寄坤二）
+  const skyStar={};
+  const gZF=XING.find(s=>s.n===zhiFuXing).g;
+  XING.forEach(s=>{
+    skyStar[((p-1+(s.g-gZF))%9+9)%9+1]=s.n;
+  });
+  // 天盤干：星所帶原宮之干
+  const skyGan={};
+  for(const g in skyStar){ skyGan[g]=earthGan[XING.find(s=>s.n===skyStar[g]).g]; }
+
+  // 值使落宮：旬首宮起，陽順陰逆數 n 時辰（中五寄二）
+  const n=hourIdx-xunIdx;
+  let shiGong=((g0-1+dir*n)%9+9)%9+1;
+  if(shiGong===5) shiGong=2;
+  // 八門轉布：以「值使門」落值使宮，其餘依 休生傷杜景死驚開 順轉（沿門環順時針，不管陰陽）
+  const skyDoor={};
+  const ri=MEN_RING.indexOf(shiGong);
+  const order=[MEN[0].n,MEN[1].n,MEN[2].n,MEN[3].n,MEN[4].n,MEN[5].n,MEN[6].n,MEN[7].n]; // 休生傷杜景死驚開
+  const zsi0=order.indexOf(zhiShiMen);
+  const zsi=zsi0<0?5:zsi0;                            // 值使門序位（異常時回退死門＝中五寄坤二）
+  const rotated=order.slice(zsi).concat(order.slice(0,zsi));
+  rotated.forEach((mn,k)=>{
+    const pos=MEN_RING[((ri+k)%8+8)%8];
+    skyDoor[pos]=mn;
+  });
+
+  // 八神：值符神落天盤值符星所在宮（=時干宮 p，中五寄二），依順時針八卦序飛布（陽順陰逆）
+  const skyShen={};
+  const shenRing=[1,8,3,4,9,2,7,6]; // 順時針八卦序（跳中五）
+  const shenSeq=dun==="陽"
+    ? ["值符","螣蛇","太陰","六合","勾陳","朱雀","九地","九天"]
+    : ["值符","螣蛇","太陰","六合","白虎","玄武","九地","九天"];
+  let pZF=p===5?2:p;
+  let i0=shenRing.indexOf(pZF);
+  shenSeq.forEach((sn,k)=>{ skyShen[shenRing[((i0+(dun==="陽"?1:-1)*k)%8+8)%8]]=sn; });
+
+  // 空亡、馬星
+  const kong=[BRANCHES[(xunIdx%12+10)%12],BRANCHES[(xunIdx%12+11)%12]];
+  const maBr={子:"寅",丑:"亥",寅:"申",卯:"巳",辰:"寅",巳:"亥",午:"申",未:"巳",申:"寅",酉:"亥",戌:"寅",亥:"巳"}[BRANCHES[hourIdx%12]];
+  const kongGong=[],maGong=[];
+  for(const g in GONG){
+    if(GONG[g].zhi.some(z=>kong.includes(z))) kongGong.push(+g);
+    if(GONG[g].zhi.includes(maBr)) maGong.push(+g);
+  }
+  return {dun,ju,earthGan,skyGan,skyStar,skyDoor,skyShen,xunName,xunYi,g0,
+          zhiFuXing,zhiShiMen,shiGong,p,kong,kongGong,maGong,maBr,n,dir};
+}
+
+/* ================= 格局判斷 ================= */
+function geJu(pp,dayIdx,hourIdx){
+  const notes={};
+  const wxGan={戊:"土",己:"土",庚:"金",辛:"金",壬:"水",癸:"水",丁:"火",丙:"火",乙:"木"};
+  const jiXing={戊:3,己:2,庚:8,辛:9,壬:4,癸:4}; // 六儀擊刑宮
+  const ruMu={乙:2,丙:6}; // 三奇入墓（木墓未→坤二、火墓戌→乾六）
+  const heGe={"乙辛":"青龍逃走","辛乙":"白虎猖狂","丁癸":"朱雀投江","癸丁":"螣蛇夭矯",
+              "庚丙":"太白入熒","丙庚":"熒入太白","戊丙":"青龍返首","丙戊":"飛鳥跌穴"};
+  for(let g=1;g<=9;g++){
+    const t=[],tg=pp.skyGan[g],dg=pp.earthGan[g];
+    if(!tg) continue;
+    if(tg===dg) t.push("伏吟");
+    const dgp=DUI_GONG[g];
+    if(pp.skyStar[g]===XING.find(s=>s.g===dgp)?.n) t.push("星反吟");
+    if(jiXing[tg]===g) t.push("擊刑");
+    if(ruMu[tg]===g) t.push("奇入墓");
+    const hg=heGe[tg+dg]; if(hg) t.push(hg);
+    if(tg==="庚"&&dg===STEMS[dayIdx%10]) t.push("伏干格");
+    if(tg===STEMS[dayIdx%10]&&dg==="庚") t.push("飛干格");
+    if(pp.skyDoor[g]==="丁") {} // 門非干
+    if(tg==="丁"&&Object.values(pp.skyDoor)[Object.keys(pp.skyDoor).findIndex(k=>+k===g)]===undefined){}
+    if(tg==="丁"&&pp.skyDoor[g]&&pp.zhiShiMen===pp.skyDoor[g]) t.push("玉女守門");
+    // 門宮生剋
+    const mn=pp.skyDoor[g];
+    if(mn){
+      const mw=MEN.find(m=>m.n===mn).wx, gw=GONG[g].wuxing;
+      const ke=(a,b)=>(a==="木"&&b==="土")||(a==="土"&&b==="水")||(a==="水"&&b==="火")||(a==="火"&&b==="金")||(a==="金"&&b==="木");
+      const sheng=(a,b)=>(a==="木"&&b==="火")||(a==="火"&&b==="土")||(a==="土"&&b==="金")||(a==="金"&&b==="水")||(a==="水"&&b==="木");
+      if(ke(mw,gw)) t.push("門迫(門剋宮)");
+      else if(ke(gw,mw)) t.push("門制(宮剋門)");
+      else if(sheng(mw,gw)) t.push("門生宮");
+      else if(sheng(gw,mw)) t.push("宮生門");
+      if(mn===pp.zhiShiMen&&+g===pp.shiGong) t.push("值使");
+    }
+    if(pp.kongGong.includes(+g)) t.push("空亡");
+    if(pp.maGong.includes(+g)) t.push("馬星");
+    if(g===5) t.push("寄坤二");
+    if(+g===pp.g0) t.push("旬首宮");
+    notes[g]=t;
+  }
+  return notes;
+}
+
+/* ================= 顯示 ================= */
+function fmtYMD(j){const d=jdnToYMD(j);return `${d.y}-${String(d.m).padStart(2,"0")}-${String(d.d).padStart(2,"0")}`;}
+
+function run(mode){
+  const err=document.getElementById("err");
+  err.style.display="none";
+  const isLunar=document.getElementById("cal").value==="lunar";
+  let Y,M,D,h,mi,lunarTag="";
+  if(isLunar){
+    const ly=+document.getElementById("ly").value;
+    const lmv=document.getElementById("lm").value;
+    const ld=+document.getElementById("ld").value;
+    const lh=+document.getElementById("lhh").value;
+    const lmi=+document.getElementById("lmi").value;
+    if(!ly||!lmv||!ld){err.textContent="請完整選擇農曆 年／月／日／時／分";err.style.display="block";return;}
+    const isLeap=lmv.slice(-1)==="L", lmNum=parseInt(lmv);
+    const sol=lunar2solar(ly,lmNum,ld,isLeap);
+    if(!sol){err.textContent="該農曆年無此閏月，請重新選擇";err.style.display="block";return;}
+    Y=sol.y;M=sol.m;D=sol.d;h=lh;mi=lmi||0;
+    lunarTag=`農曆 ${cnYear(ly)}年${isLeap?"閏":""}${cnNum(lmNum)}月${cnNum(ld)}日 ${hzNameOf(lh)}`;
+  } else {
+    const sy=+document.getElementById("sy").value;
+    const sm=+document.getElementById("sm").value;
+    const sd=+document.getElementById("sd").value;
+    const sh=+document.getElementById("shh").value;
+    const smi=+document.getElementById("smi").value;
+    if(!sy||!sm||!sd){err.textContent="請完整選擇陽曆 年／月／日／時／分";err.style.display="block";return;}
+    Y=sy;M=sm;D=sd;h=sh;mi=smi||0;
+  }
+  if(!lunarTag){
+    const _l=solar2lunar(Y,M,D);
+    if(_l) lunarTag=`農曆 ${cnYear(_l.y)}年${_l.isLeap?"閏":""}${cnNum(_l.m)}月${cnNum(_l.d)}日 ${hzNameOf(h)}`;
+  }
+  const inH=h,inMi=mi; // 輸入時分（未修正）
+  const lon=parseFloat(document.getElementById("lon").value)||120;
+  // 真太陽時（平太陽時差）
+  const totalMin=h*60+mi+Math.round((lon-120)*4);
+  let adjDay=0,hh=Math.floor(totalMin/60);
+  if(hh>=24){hh-=24;adjDay=1;} if(hh<0){hh+=24;adjDay=-1;}
+  h=hh;mi=totalMin%60;
+  let brIdx=Math.floor(((h+1)%24)/2); // 時支
+  let dayJ=jdn(Y,M,D)+(h>=23?1:0)+adjDay; // 23時後日柱進一日
+  if(h>=23&&adjDay===1){/*已含*/}
+  let dayIdx=dayGZ(dayJ);
+  let hourIdx=hourGZ(dayIdx,brIdx);
+
+  // 定局：由「時間排盤」（自動置閏法）或「自訂局排盤」按鈕決定
+  const manual=(mode==="custom")?"custom":"auto";
+  let juInfo, cDayIdx=null, cBrIdx=null;
+  if(manual==="auto"){
+    juInfo=dingJu(dayJ);
+  } else {
+    // 自訂局：直接指定日柱／時辰／局（時干以五鼠遁由日柱推得）
+    cDayIdx=+document.getElementById("cdgz").value;
+    cBrIdx=+document.getElementById("chbr").value;
+    const cuv=document.getElementById("cju").value;
+    juInfo={F0:dayJ,term:null,yuan:0,label:"自訂局",fuTou:GZ(cDayIdx),ju:+cuv.slice(1),dun:cuv[0],isRun:false};
+  }
+  if(cDayIdx!==null){ dayIdx=cDayIdx; brIdx=cBrIdx; hourIdx=hourGZ(dayIdx,brIdx); }
+  const pp=paipan(dayJ,brIdx,hourIdx,juInfo);
+  const notes=geJu(pp,dayIdx,hourIdx);
+
+  // 四柱
+  let {yearIdx, monthGanIdx, mBr}=yearMonthGZ(Y,dayJ);
+  // 自訂局：年柱、月柱亦可直接指定（僅影響顯示，不影響排盤）
+  if(manual!=="auto"){
+    yearIdx=+document.getElementById("cygz").value;
+    const cmi=+document.getElementById("cmgz").value;
+    monthGanIdx=cmi%10; mBr=cmi%12;
+  }
+
+  const headbox=document.getElementById("headbox");
+  headbox.style.display="block";
+  // 標題下方一行：確認的起局時間；自訂局則顯示自訂條件
+  const pad2=n=>String(n).padStart(2,"0");
+  const dtIn=`${Y}/${pad2(M)}/${pad2(D)} ${pad2(inH)}:${pad2(inMi)}`;
+  const adjMin=Math.round((lon-120)*4);
+  const dtAdj=adjMin!==0?`（真太陽時 ${pad2(((h%24)+24)%24)}:${pad2(((mi%60)+60)%60)}${adjDay?(adjDay>0?" 次日":" 前日"):""}）`:"";
+  const aliasLine = manual==="auto" ? `起局時間：${dtIn}${lunarTag?`（${lunarTag}）`:""}${dtAdj}`
+    : `自訂局：${GZ(dayIdx)}日 ${BRANCHES[brIdx]}時　${pp.dun}遁${cnNum(pp.ju)}局`;
+  const jiePill = manual==="auto"
+    ? `<span class="pill">節氣：<b>${juInfo.term.name}</b>${["上","中","下"][juInfo.yuan]}元（符頭 ${juInfo.fuTou}・${juInfo.label}）</span>`
+    : `<span class="pill">定局：<b>自訂局</b>（日柱 ${GZ(dayIdx)}・${BRANCHES[brIdx]}時・${pp.dun}遁${cnNum(pp.ju)}局）</span>`;
+  headbox.innerHTML=`
+    <div class="ju-title${pp.dun==="陰"?" yin":""}">${pp.dun==="陽"?"陽遁"+cnNum(pp.ju)+"局":"陰遁"+cnNum(pp.ju)+"局"}</div>
+    <div class="ju-alias">〔 ${aliasLine} 〕</div>
+    <div class="gz-line${pp.dun==="陰"?" yin":""}">${GZ(yearIdx)}年　${STEMS[monthGanIdx]+BRANCHES[mBr]}月　<span class="s">${GZ(dayIdx)}</span>日　<span class="b">${GZ(hourIdx)}</span>時</div>
+    <div class="fuzhu">
+      ${jiePill}
+      <span class="pill">旬首：<b>${pp.xunName}</b>遁 <b>${pp.xunYi}</b></span>
+      <span class="pill">旬空：<b class="warn">${pp.kong.join("、")}</b></span>
+      <span class="pill">馬星：<b>${pp.maBr}</b></span>
+      ${pp.p===5&&STEMS[hourIdx%10]==="甲"?'<span class="pill warn">六甲時・伏吟</span>':""}
+    </div>
+    <div class="fuzhu">
+      <span class="pill"><b>${pp.zhiFuXing}</b> 值符加 ${GONG[pp.p].name}${pp.p}宮（隨時干${STEMS[hourIdx%10]==="甲"?"甲遁"+pp.xunYi:STEMS[hourIdx%10]}）</span>
+      <span class="pill"><b>${pp.zhiShiMen}</b> 值使加 ${GONG[pp.shiGong].name}${pp.shiGong}宮</span>
+      ${(()=>{const hStem=STEMS[hourIdx%10];
+        const ke=(a,b)=>({木:{土:1},土:{水:1},水:{火:1},火:{金:1},金:{木:1}}[a]||{})[b];
+        return ke(hStem==="甲"?pp.xunYi:hStem)&&ke(hStem==="甲"?pp.xunYi:hStem,STEMS[dayIdx%10])?'<span class="pill warn">五不遇時（時干剋日干）</span>':"";})()}
+    </div>`;
+
+  // 九宮盤
+  const grid=document.getElementById("grid9");
+  grid.style.display="grid";
+  const layout=[[4,9,2],[3,5,7],[8,1,6]];
+  const doorCls={"大吉":"dorgood","吉":"dorgood","小吉":"dorgood","平":"dormid","小凶":"dorbad","凶":"dorbad","大凶":"dorbad"};
+  grid.innerHTML=layout.flat().map(g=>{
+    const G=GONG[g];
+    const shen=pp.skyShen[g]||"";
+    const door=pp.skyDoor[g];
+    const star=pp.skyStar[g];
+    const tg=pp.skyGan[g],dg=pp.earthGan[g];
+    const doorJJ=door?MEN.find(m=>m.n===door).jj:"";
+    const nts=(notes[g]||[]).filter(x=>["空亡","馬星","擊刑","寄坤二"].includes(x));
+    return `<div class="cell ${g===5?"mid":""}">
+      <div class="gong-name">${G.tri} ${G.name}${g}宮</div>
+      <div class="badges">${nts.map(x=>`<span class="bdg ${x==="馬星"?"blue":x==="寄坤二"?"gray":""}">${x}</span>`).join("")}</div>
+      <div class="row1"><span class="gan-tian">${tg||""}</span><span class="god">${shen?SHEN_ABBR[shen]||shen:""}</span><span class="star ${star===pp.zhiFuXing?"zf":""}">${star?XING_ABBR(star):""}</span></div>
+      <div class="row2"><span class="gan-di">${dg||""}</span><span></span><span class="door ${["休門","生門","開門"].includes(door)?"ji ":""}${door===pp.zhiShiMen?"zs":""}">${door?MEN_ABBR(door):""}</span></div>
+    </div>`;
+  }).join("");
+
+  // 逐宮明細（乾坎艮震巽離坤兌）
+  const detOrder=[6,1,8,3,4,9,2,7];
+  const detbox=document.getElementById("detbox");
+  detbox.style.display="block";
+  detbox.innerHTML=`<div class="subhd">逐宮明細</div>
+  <div class="tablewrap"><table class="det"><tr>${detOrder.map(g=>`<th>${GONG[g].tri} ${GONG[g].name}${g}</th>`).join("")}</tr>
+  <tr>${detOrder.map(g=>`<td class="gname">${GONG[g].name}${g}宮<br><span class="small">${GONG[g].zhi.join("")||"-"}</span></td>`).join("")}</tr>
+  <tr>${detOrder.map(g=>`<td>${pp.skyShen[g]?"神："+pp.skyShen[g]:"—"}</td>`).join("")}</tr>
+  <tr>${detOrder.map(g=>{const d=pp.skyDoor[g];const jj=d?MEN.find(m=>m.n===d).jj:"";return `<td>${d?`<span class="${doorCls[jj]}">${d}</span>(${jj})`:"寄坤二"}</td>`;}).join("")}</tr>
+  <tr>${detOrder.map(g=>`<td>${pp.skyStar[g]?pp.skyStar[g]:"—"}${pp.skyStar[g]==="天禽"?"<br><span class='small'>寄坤二</span>":""}</td>`).join("")}</tr>
+  <tr>${detOrder.map(g=>`<td><span class="gan-tian" style="font-size:20px">${pp.skyGan[g]||""}</span> / <span class="gan-di" style="font-size:20px">${pp.earthGan[g]}</span></td>`).join("")}</tr>
+  <tr>${detOrder.map(g=>`<td class="note">${(notes[g]||[]).join("、")||"—"}</td>`).join("")}</tr></table></div>`;
+
+  // 解盤說明
+  const MEN_TXT={"開門":"吉。開業、求官、遠行、見貴，百事亨通。","休門":"吉。休息、聚會、經商、嫁娶、謁貴。","生門":"大吉。營造、求財、婚娶、謀事。","傷門":"凶。傷災病痛、是非；宜討債、捕獵。","杜門":"小凶偏平。阻塞閉塞；宜隱藏防守。","景門":"平。文書、考試、宴會；不久長。","死門":"大凶。忌出行謀事；宜弔喪、行刑、漁獵。","驚門":"凶。驚恐官司口舌；宜追捕逃亡。"};
+  const XING_TXT={"天蓬":"大凶星（水）。訟庭爭競；所入之宮不宜嫁娶營造。","天芮":"大凶星（土）。疾病、師友授道；不宜遠行訴訟。","天沖":"小吉星（木）。宜出軍報仇、捕捉；不利嫁娶商賈。","天輔":"大吉星（木）。宜遠行、修造、婚娶、請客。","天禽":"吉星（土）。宜遠行、做生意、見貴。","天心":"大吉星（金）。宜求醫服藥、經商、遷葬。","天柱":"小凶星（金）。宜隱跡固守；不宜出行謀事。","天任":"小吉星（土）。祭祀求官嫁娶、商賈造葬皆吉。","天英":"小凶星（火）。爐火殘患；嫁娶遠行皆不宜。"};
+  const SHEN_TXT={"值符":"天乙之神，百惡消散；急則從神。","螣蛇":"虛詐之神，驚恐怪異。","太陰":"蔭佑之神，可藏兵避難。","六合":"護衛之神，婚姻交易。","白虎":"兇惡剛猛，兵戈殺伐。","玄武":"奸讒盜賊，口舌陰謀。","九地":"堅守之神，屯兵固守。","九天":"威悍之神，揚兵布陣。"};
+  let jieHTML=`<div class="subhd">解盤說明</div>`;
+  jieHTML+=`<h3>盤面綱要</h3><ul>
+    <li><b>值符 ${pp.zhiFuXing}</b>（${XING_TXT[pp.zhiFuXing]}）臨 ${GONG[pp.p].name}${pp.p}宮。</li>
+    <li><b>值使 ${pp.zhiShiMen}</b>（${MEN_TXT[pp.zhiShiMen]}）臨 ${GONG[pp.shiGong].name}${pp.shiGong}宮。</li>
+    <li><b>旬空</b>：${pp.kong.join("、")}——臨宮（${pp.kongGong.map(g=>GONG[g].name+g).join("、")}）之事多虛不實。</li>
+    <li><b>馬星 ${pp.maBr}</b>：臨 ${pp.maGong.map(g=>GONG[g].name+g).join("、")}宮，主變動、出行、快速。</li></ul>`;
+  jieHTML+=`<h3>各宮要義（有門有干者）</h3><ul>`;
+  for(const g of [1,2,3,4,6,7,8,9]){
+    const mn=pp.skyDoor[g],st=pp.skyStar[g],sn=pp.skyShen[g];
+    if(!mn&&!st&&!pp.skyGan[g]) continue;
+    const parts=[];
+    if(sn) parts.push(`<b>${sn}</b>：${SHEN_TXT[sn]}`);
+    if(st) parts.push(`<b>${st}</b>：${XING_TXT[st]}`);
+    if(mn) parts.push(`<b>${mn}</b>：${MEN_TXT[mn]}`);
+    if(pp.skyGan[g]) parts.push(`天盤 ${pp.skyGan[g]} 加地盤 ${pp.earthGan[g]}${(notes[g]||[]).length?`（${notes[g].filter(x=>!["空亡","馬星"].includes(x)).join("、")}）`:""}`);
+    if(parts.length) jieHTML+=`<li><b>${GONG[g].name}${g}宮</b>：${parts.join("；")}。</li>`;
+  }
+  jieHTML+=`</ul>`;
+  jieHTML+=`<h3>用法提要</h3><ul>
+    <li><b>急則從神，緩從門</b>：事急從值符方，事緩擇吉門。</li>
+    <li><b>三奇吉門</b>：乙丙丁三奇合開休生三吉門，百事皆宜。</li>
+    <li><b>青龍返首、飛鳥跌穴</b>為大吉之格；<b>龍逃走、虎猖狂、雀投江、蛇夭矯</b>為大凶之格。</li>
+    <li><b>門迫／門制</b>：吉門被迫吉事不成，凶門被迫凶事尤甚。</li>
+    <li><b>空亡</b>主事虛；<b>馬星</b>主變動應速；<b>伏吟</b>主靜守不動，<b>反吟</b>主反覆。</li></ul>`;
+  const jiebox=document.getElementById("jiebox");
+  jiebox.style.display="block";
+  jiebox.innerHTML=jieHTML;
+}
+
+function now(){
+  const d=new Date();
+  const hh=d.getHours(), mm=d.getMinutes();
+  // 陽曆欄位
+  document.getElementById("sy").value=d.getFullYear();
+  initSolarUI();
+  document.getElementById("sm").value=String(d.getMonth()+1);
+  refreshSolarDays();
+  document.getElementById("sd").value=String(d.getDate());
+  document.getElementById("shh").value=String(hh);
+  document.getElementById("smi").value=String(mm);
+  // 農曆欄位（同步為同一時刻）
+  const l=solar2lunar(d.getFullYear(),d.getMonth()+1,d.getDate());
+  if(l){
+    document.getElementById("ly").value=l.y;
+    refreshLunarUI();
+    document.getElementById("lm").value=l.isLeap?(l.m+"L"):String(l.m);
+    refreshDays();
+    document.getElementById("ld").value=String(l.d);
+    document.getElementById("lhh").value=String(hh);
+    document.getElementById("lmi").value=String(mm);
+  }
+  // 僅填入時間，不自動排盤；確認無誤後再按「排盤」
+}
+
+// 填入自訂局選項、時辰選項；載入時帶入現在時間（不自動排盤）
+(function(){
+  // 自訂局五下拉：年柱／月柱／日柱（六十甲子）／時辰（十二支）／局（陽陰各九局，國字）
+  {
+    let a="",b="",c="";
+    for(let i=0;i<60;i++) a+=`<option value="${i}">${GZ(i)}</option>`;
+    for(let i=0;i<12;i++) b+=`<option value="${i}">${BRANCHES[i]}</option>`;
+    for(const d of ["陽","陰"]) for(let j=1;j<=9;j++) c+=`<option value="${d}${j}">${d}${cnNum(j)}局</option>`;
+    for(const id of ["cygz","cmgz","cdgz"]) document.getElementById(id).innerHTML=a;
+    document.getElementById("chbr").innerHTML=b;
+    document.getElementById("cju").innerHTML=c;
+  }
+  fillHM("lhh","lmi");
+  const lyEl=document.getElementById("ly");
+  lyEl.addEventListener("change",refreshLunarUI);
+  lyEl.addEventListener("blur",refreshLunarUI);
+  const syEl=document.getElementById("sy");
+  syEl.addEventListener("change",refreshSolarDays);
+  syEl.addEventListener("blur",refreshSolarDays);
+  // 帶入現在時間（陽曆＋農曆同步），不自動排盤
+  now();
+  // 自訂局五下拉預設值：帶入現在時間的年柱／月柱／日柱／時辰，局則帶入置閏法所定之局
+  try{
+    const _y=+document.getElementById("sy").value, _m=+document.getElementById("sm").value, _d=+document.getElementById("sd").value;
+    const _hh=+document.getElementById("shh").value;
+    if(_y&&_m&&_d){
+      const _j=jdn(_y,_m,_d)+(_hh>=23?1:0);
+      const ym=yearMonthGZ(_y,_j);
+      document.getElementById("cygz").value=String(ym.yearIdx);
+      document.getElementById("cmgz").value=String(gzIdx(ym.monthGanIdx,ym.mBr));
+      document.getElementById("cdgz").value=String(dayGZ(_j));
+      document.getElementById("chbr").value=String(Math.floor(((_hh+1)%24)/2));
+      const _ju=dingJu(_j);
+      document.getElementById("cju").value=_ju.dun+_ju.ju;
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
